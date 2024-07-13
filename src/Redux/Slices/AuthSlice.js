@@ -40,7 +40,15 @@ export const signup = createAsyncThunk('auth/signup', async(data) => {
 const AuthSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        logout: (state) => {
+            localStorage.clear();
+            state.role = '';
+            state.isLoggedIn = false;
+            state.data = '';
+            state.token = '';
+        }
+    },
     extraReducers: (builder) => { // extrareducers taks the function builder and here we have to do builder.addcase which as the async thunk is nothing more vthan promise so here if that promise got fulfilled what action we have to do or if it gets rejected what action we have to do . If you observe clearly it nothing more the reducer function.
         builder.addCase(login.fulfilled, (state,action) => {
             console.log("action", action);
@@ -57,4 +65,5 @@ const AuthSlice = createSlice({
     }
 });
 
+export const { logout } = AuthSlice.actions;
 export default AuthSlice.reducer;
