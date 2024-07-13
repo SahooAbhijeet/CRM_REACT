@@ -17,6 +17,15 @@ export const login = createAsyncThunk('auth/login', async(data) => { // async th
     }
 });
 
+export const signup = createAsyncThunk('auth/signup', async(data) => { 
+    try {
+        const response = await axiosInstance.post('auth/signup', data);
+        return response;
+    } catch (error) {
+        console.log("error", error);
+    }
+});
+
 const AuthSlice = createSlice({
     name: 'auth',
     initialState,
