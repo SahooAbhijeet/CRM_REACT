@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../config/axiosInstance";
+import toast from "react-hot-toast";
 
 const initialState = {
     role: localStorage.getItem('role') || '',
@@ -10,8 +11,13 @@ const initialState = {
 
 export const login = createAsyncThunk('auth/login', async(data) => { // async thunk is only way of calling asynchronously a function . It takes a string and a callback func. that mainly does the api call
     try {
-        const response = await axiosInstance.post('auth/signin', data);
-        return response;
+        const response = axiosInstance.post('auth/signin', data);
+        toast.promise(response, {
+            loading: 'Submitting form',
+            success: 'Successfully logged in',
+            error: 'Something went wrong'
+        })
+        return await response;
     } catch (error) {
         console.log(error);
     }
@@ -19,8 +25,13 @@ export const login = createAsyncThunk('auth/login', async(data) => { // async th
 
 export const signup = createAsyncThunk('auth/signup', async(data) => { 
     try {
-        const response = await axiosInstance.post('auth/signup', data);
-        return response;
+        const response = axiosInstance.post('auth/signup', data);
+        toast.promise(response, {
+            loading: 'Submitting form',
+            success: 'Successfully signed up',
+            error: 'Something went wrong'
+        })
+        return await response;
     } catch (error) {
         console.log("error", error);
     }

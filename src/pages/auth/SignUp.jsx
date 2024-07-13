@@ -48,11 +48,11 @@ const Signup = () => {
         ) return;
         const response = await dispatch(signup(signupDetails));
         console.log("res", response);
-        // if (response.payload) {
-        //     navigate("/")
-        // } else {
-        //     resetSignupState();
-        // }
+        if (response.payload) {
+            navigate("/")
+        } else {
+            resetSignupState();
+        }
     }
 
     function handleUserType(e) {
